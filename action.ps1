@@ -124,10 +124,9 @@ Function ProcessAssetFile()
     Write-Verbose "Processing file $($file.FullName)"
 
     $outputFileName = ($directories + $file.Name) -join "/"
-    $content = Get-Content -Path $file.FullName
     $outputPath = $wikiRepoPath + "/plantuml-images/" + $outputFileName
     New-Item -Path ($wikiRepoPath + "/plantuml-images") -ItemType Directory -Force
-    $content | Out-File -Path $outputPath
+    Copy-Item -Path $file.FullName -Destination $outputPath -Force
     
     Write-ActionInfo "outputFileName $outputFileName"
     Write-ActionInfo "outputPath $outputPath"
