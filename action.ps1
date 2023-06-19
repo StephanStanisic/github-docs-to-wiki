@@ -125,7 +125,8 @@ Function ProcessAssetFile()
 
     $outputFileName = ($directories + $file.Name) -join "/"
     $content = Get-Content -Path $file.FullName
-    $outputPath = $wikiRepoPath + "/" + $outputFileName
+    $outputPath = $wikiRepoPath + "/plantuml-images/" + $outputFileName
+    New-Item -Path $wikiRepoPath + "/plantuml-images" -ItemType Directory -Force
     $content | Out-File -Path $outputPath
     
     Write-ActionInfo "outputFileName $outputFileName"
