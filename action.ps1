@@ -49,12 +49,16 @@ Function ProcessSourceDirectory()
     [cmdletbinding()]
     param([string[]]$directories=@())
 
+    Write-ActionInfo "Processing source directory.."
+
     foreach ($file in Get-ChildItem "*.md")
     {
+        Write-ActionInfo "Process file $file"
         ProcessSourceFile $file $directories
     }
     foreach ($file in Get-ChildItem -Path "*.png" -Recurse -Force)
     {
+        Write-ActionInfo "Process image $file"
         ProcessAssetFile $file $directories
     }
 
@@ -123,6 +127,9 @@ Function ProcessAssetFile()
     $content = Get-Content -Path $file.FullName
     $outputPath = $wikiRepoPath + "/" + $outputFileName
     $content | Out-File -Path $outputPath
+    
+    Write-ActionInfo "outputFileName $outputFileName"
+    Write-ActionInfo "outputPath $outputPath"
 }
 
 Function GetOutputFileNameFromFile()
