@@ -53,6 +53,10 @@ Function ProcessSourceDirectory()
     {
         ProcessSourceFile $file $directories
     }
+    foreach ($file in Get-ChildItem "assets/*")
+    {
+        ProcessAssetFile $file $directories
+    }
 
     foreach ($dir in Get-ChildItem -Directory)
     {
@@ -105,6 +109,19 @@ Function ProcessSourceFile()
 
     $outputPath = $wikiRepoPath + "/" + $outputFileName
 
+    $content | Set-Content -Path $outputPath
+}
+
+Function ProcessAssetFile()
+{
+    [cmdletbinding()]
+    param($file, [string[]]$directories)
+
+    Write-Verbose "Processing file $($file.FullName)"
+
+    $outputFileName = ($directories + $file.Name) -join "__"
+    $content = Get-Content -Path $file.FullName
+    $outputPath = $wikiRepoPath + "/" + $outputFileName
     $content | Set-Content -Path $outputPath
 }
 
