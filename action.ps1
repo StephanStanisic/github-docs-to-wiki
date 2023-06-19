@@ -49,14 +49,14 @@ Function ProcessSourceDirectory()
     [cmdletbinding()]
     param([string[]]$directories=@())
 
-    Write-ActionInfo "Processing source directory.."
+    Write-ActionInfo "Processing source directory.. $directories"
 
     foreach ($file in Get-ChildItem "*.md")
     {
         Write-ActionInfo "Process file $file"
         ProcessSourceFile $file $directories
     }
-    foreach ($file in Get-ChildItem -Path "*.png" -Recurse -Force)
+    foreach ($file in Get-ChildItem -Path "plantuml-images" -Include "*.png" -Recurse -Force)
     {
         Write-ActionInfo "Process image $file"
         ProcessAssetFile $file $directories
