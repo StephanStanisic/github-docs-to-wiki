@@ -53,7 +53,7 @@ Function ProcessSourceDirectory()
     {
         ProcessSourceFile $file $directories
     }
-    foreach ($file in Get-ChildItem "assets/*")
+    foreach ($file in Get-ChildItem "*.png")
     {
         ProcessAssetFile $file $directories
     }
