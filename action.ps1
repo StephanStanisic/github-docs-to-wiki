@@ -53,7 +53,7 @@ Function ProcessSourceDirectory()
     {
         ProcessSourceFile $file $directories
     }
-    foreach ($file in Get-ChildItem "*.png")
+    foreach ($file in Get-ChildItem -Path "*.png" -Recurse -Force)
     {
         ProcessAssetFile $file $directories
     }
@@ -119,10 +119,10 @@ Function ProcessAssetFile()
 
     Write-Verbose "Processing file $($file.FullName)"
 
-    $outputFileName = ($directories + $file.Name) -join "__"
+    $outputFileName = ($directories + $file.Name) -join "/"
     $content = Get-Content -Path $file.FullName
     $outputPath = $wikiRepoPath + "/" + $outputFileName
-    $content | Set-Content -Path $outputPath
+    $content | Out-File -Path $outputPath
 }
 
 Function GetOutputFileNameFromFile()
